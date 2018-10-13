@@ -14,12 +14,14 @@ class GifSearch extends Component {
   handleSubmit = evt => {
     evt.preventDefault();
     alert(`Form submitted with ${this.state.searchParameter}`);
+    this.props.getSearch(this.state.searchParameter);
     this.setState({
       searchParameter: ''
     });
   };
 
   render() {
+    const { getTrending } = this.props;
     return (
       <div className="searchForm container">
         <form onSubmit={this.handleSubmit}>
@@ -38,8 +40,8 @@ class GifSearch extends Component {
             <input type="submit" value="Submit" />
           </div>
         </form>
-        <div class="container">
-          <button>Get Trending GIFS</button>
+        <div className="container">
+          <button onClick={() => getTrending()}>Get Trending GIFS</button>
         </div>
       </div>
     );

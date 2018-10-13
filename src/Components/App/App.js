@@ -7,15 +7,25 @@ import Header from '../Header';
 class App extends Component {
   state = {
     trendingGifs: [],
-    searchResults: [],
-    search: false
+    search: false,
+    searchResults: []
   };
 
   async componentDidMount() {
-    const response = await this.fetchTrendingGifs();
-    this.setState({
-      trendingGifs: response
-    });
+    let isSearch = this.state.search;
+    const response = isSearch
+      ? await this.fetchGifsBySearch()
+      : await this.fetchTrendingGifs();
+    isSearch && !this.state.trendingGifs.length
+      ? this.setState({
+          ...this.state,
+          searchResults: response
+        })
+      : this.setState({
+          trendingGifs: response,
+          ...this.state.search,
+          ...this.state.searchResults
+        });
   }
 
   fetchTrendingGifs = async () => {
@@ -34,17 +44,25 @@ class App extends Component {
   toggleSearchOn = () => {
     this.setState({
       ...this.state,
-      searchResults: [],
-      search: true
+      search: true,
+      searchResults: []
     });
   };
 
   toggleSearchOff = () => {
     this.setState({
       ...this.state,
-      searchResults: [],
-      search: false
+      search: false,
+      searchResults: []
     });
+  };
+
+  handleSearchInput = searchParams => {
+    let newSearchStr = searchParams
+      .trim()
+      .split(' ')
+      .join('+');
+    return newSearchStr;
   };
 
   fetchGifsBySearch = async searchParams => {
@@ -53,11 +71,19 @@ class App extends Component {
       //set this.state.search to true
 
       this.toggleSearchOn();
+
+      //format search form input for api call
+      let queryString = this.handleSearchInput(searchParams);
+
       const apiKey = `${process.env.REACT_APP_GIF_API_KEY}`;
-      let searchParams = 'funny cat';
-      const url = `http://api.giphy.com/v1/gifs/search?q=${searchParams}&api_key=${apiKey}`;
+      const url = `http://api.giphy.com/v1/gifs/search?q=${queryString}&api_key=${apiKey}`;
+      console.log('url', url);
       const response = await axios.get(url).then(res => {
         return res.data.data;
+      });
+      this.setState({
+        ...this.state,
+        searchResults: response
       });
     } catch (error) {
       console.log(error);
@@ -68,7 +94,7 @@ class App extends Component {
     return (
       <div className="App">
         <Header
-          getSearchResults={this.fetchTrendingGifs}
+          getSearchResults={this.fetchGifsBySearch}
           getTrendingGifs={this.toggleSearchOff}
         />
         <GifList
