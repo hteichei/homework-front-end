@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import GifCard from '../GifCard';
+import './style.css';
 
 class GifList extends Component {
   state = { gifs: [] };
@@ -32,12 +33,12 @@ class GifList extends Component {
           key={gif.id}
           id={gif.id}
           title={gif.title}
-          src={gif.embed_url}
+          src={gif.images.fixed_height.url}
           username={gif.username}
         />
       );
     });
-    return <div>{grid}</div>;
+    return <div className="container">{grid}</div>;
   }
 }
 
