@@ -7,7 +7,6 @@ import Header from '../Header';
 class App extends Component {
   state = {
     trendingGifs: [],
-    trending: true,
     searchResults: [],
     search: false
   };
@@ -34,9 +33,17 @@ class App extends Component {
 
   toggleSearchOn = () => {
     this.setState({
-      ...state,
+      ...this.state,
       searchResults: [],
       search: true
+    });
+  };
+
+  toggleSearchOff = () => {
+    this.setState({
+      ...this.state,
+      searchResults: [],
+      search: false
     });
   };
 
@@ -60,7 +67,10 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Header />
+        <Header
+          getSearchResults={this.fetchTrendingGifs}
+          getTrendingGifs={this.toggleSearchOff}
+        />
         <GifList
           gifList={
             //if search is active, render search results, otherwise render trending gifs
