@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import './style.css';
 class GifSearch extends Component {
   state = {
     searchParameter: ''
@@ -21,19 +21,26 @@ class GifSearch extends Component {
 
   render() {
     return (
-      <div>
+      <div className="searchForm container">
         <form onSubmit={this.handleSubmit}>
-          <label id="search">
-            Find A Gif:
+          <div className="container">
+            <label id="search">Find A GIF:</label>
+          </div>
+          <div className="container">
             <input
               type="text"
               name="search"
               value={this.state.searchParameter}
               onChange={this.handleChange}
             />
-          </label>
-          <input type="submit" value="Submit" />
+          </div>
+          <div className="container">
+            <input type="submit" value="Submit" />
+          </div>
         </form>
+        <div class="container">
+          <button>Get Trending GIFS</button>
+        </div>
       </div>
     );
   }
