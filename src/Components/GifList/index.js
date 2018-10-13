@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import GifCard from '../GifCard';
 
 class GifList extends Component {
   state = { gifs: [] };
@@ -25,12 +26,18 @@ class GifList extends Component {
   };
 
   render() {
-    console.log('state', this.state);
-    return (
-      <div>
-        <h1>I'm a List</h1>
-      </div>
-    );
+    const grid = this.state.gifs.map(gif => {
+      return (
+        <GifCard
+          key={gif.id}
+          id={gif.id}
+          title={gif.title}
+          src={gif.embed_url}
+          username={gif.username}
+        />
+      );
+    });
+    return <div>{grid}</div>;
   }
 }
 
