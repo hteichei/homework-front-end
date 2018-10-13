@@ -12,30 +12,23 @@ class App extends Component {
   };
 
   async componentDidMount() {
-    let isSearch = this.state.search;
-    const response = isSearch
-      ? await this.fetchGifsBySearch()
-      : await this.fetchTrendingGifs();
-    isSearch && !this.state.trendingGifs.length
-      ? this.setState({
-          ...this.state,
-          searchResults: response
-        })
-      : this.setState({
-          trendingGifs: response,
-          ...this.state.search,
-          ...this.state.searchResults
-        });
+    this.fetchTrendingGifs();
   }
 
   fetchTrendingGifs = async () => {
     try {
+      this.toggleSearchOff();
       const apiKey = `${process.env.REACT_APP_GIF_API_KEY}`;
       const url = `http://api.giphy.com/v1/gifs/trending?api_key=${apiKey}`;
       const response = await axios.get(url).then(res => {
+        console.log('trendingGifs', res.data.data);
         return res.data.data;
       });
-      return response;
+      this.setState({
+        trendingGifs: response,
+        ...this.state.search,
+        ...this.state.searchResults
+      });
     } catch (error) {
       console.log(error);
     }
@@ -77,8 +70,8 @@ class App extends Component {
 
       const apiKey = `${process.env.REACT_APP_GIF_API_KEY}`;
       const url = `http://api.giphy.com/v1/gifs/search?q=${queryString}&api_key=${apiKey}`;
-      console.log('url', url);
       const response = await axios.get(url).then(res => {
+        console.log('searchGifs', res.data.data);
         return res.data.data;
       });
       this.setState({
@@ -95,7 +88,7 @@ class App extends Component {
       <div className="App">
         <Header
           getSearchResults={this.fetchGifsBySearch}
-          getTrendingGifs={this.toggleSearchOff}
+          getTrendingGifs={this.fetchTrendingGifs}
         />
         <GifList
           gifList={
