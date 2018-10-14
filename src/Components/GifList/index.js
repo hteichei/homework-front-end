@@ -5,6 +5,15 @@ import './style.css';
 class GifList extends Component {
   state = { loadedGifs: [] };
 
+  componentDidUpdate(prevProps, prevState) {
+    console.log('isSearch', this.props.isSearch);
+    if (prevProps !== this.props) {
+      this.setState({
+        loadedGifs: []
+      });
+    }
+  }
+
   sortLoading = item => {
     let updatedGifs = this.state.loadedGifs;
     updatedGifs.push({ imgPath: item.images.fixed_height.url });

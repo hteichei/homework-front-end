@@ -16,7 +16,7 @@ class GifCard extends Component {
     return (
       <div className="card">
         {}
-        <LazyLoad debounce={false} height={250} width={250} offset={0}>
+        <LazyLoad debounce={false} height={180} width={250} offset={0}>
           <img
             src={src}
             alt="gif"

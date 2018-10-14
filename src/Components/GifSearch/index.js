@@ -12,6 +12,7 @@ class GifSearch extends Component {
   };
 
   handleSubmit = evt => {
+    alert('search!');
     evt.preventDefault();
     this.props.getSearch(this.state.searchParameter);
     this.setState({

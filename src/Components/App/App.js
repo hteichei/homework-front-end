@@ -19,7 +19,7 @@ class App extends Component {
     try {
       this.toggleSearchOff();
       const apiKey = `${process.env.REACT_APP_GIF_API_KEY}`;
-      const limit = 100;
+      const limit = 20;
       const weirdness = 10;
       const url = `http://api.giphy.com/v1/gifs/trending?api_key=${apiKey}&limit=${limit}&weirdness=${weirdness}`;
       const response = await axios.get(url).then(res => {
@@ -66,7 +66,6 @@ class App extends Component {
       //set this.state.search to true
 
       this.toggleSearchOn();
-
       //format search form input for api call
       let queryString = this.handleSearchInput(searchParams);
 
@@ -99,6 +98,7 @@ class App extends Component {
               ? this.state.searchResults
               : this.state.trendingGifs
           }
+          isSearch={this.state.search}
         />
       </div>
     );
