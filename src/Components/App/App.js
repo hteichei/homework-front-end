@@ -19,7 +19,7 @@ class App extends Component {
     try {
       this.toggleSearchOff();
       const apiKey = `${process.env.REACT_APP_GIF_API_KEY}`;
-      const limit = 200;
+      const limit = 100;
       const weirdness = 10;
       const url = `http://api.giphy.com/v1/gifs/trending?api_key=${apiKey}&limit=${limit}&weirdness=${weirdness}`;
       const response = await axios.get(url).then(res => {

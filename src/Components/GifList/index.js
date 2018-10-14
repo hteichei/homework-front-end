@@ -3,19 +3,34 @@ import GifCard from '../GifCard';
 import './style.css';
 
 class GifList extends Component {
+  state = { loadedGifs: [] };
+
+  sortLoading = item => {
+    let updatedGifs = this.state.loadedGifs;
+    updatedGifs.push({ imgPath: item.images.fixed_height.url });
+    this.setState({ loadedItems: updatedGifs });
+  };
+
   render() {
-    const grid = this.props.gifList.map(gif => {
-      return (
-        <GifCard
-          key={gif.id}
-          id={gif.id}
-          title={gif.title}
-          src={gif.images.fixed_height.url}
-          username={gif.username}
-        />
-      );
-    });
-    return <div className="container">{grid}</div>;
+    return (
+      <div class="container">
+        {this.state.loadedGifs.map((item, i) => (
+          <GifCard src={item.imgPath} key={i} />
+        ))}
+        <div className="hidden">
+          {this.props.gifList.map((gif, i) => (
+            <img
+              key={gif.id}
+              id={gif.id}
+              title={gif.title}
+              src={gif.images.fixed_height.url}
+              username={gif.username}
+              onLoad={() => this.sortLoading(gif)}
+            />
+          ))}
+        </div>
+      </div>
+    );
   }
 }
 

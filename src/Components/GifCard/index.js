@@ -6,12 +6,13 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 class GifCard extends Component {
   state = { loading: true };
 
-  handleLoading = () => {
+  handleLoading = gif => {
     this.setState({ loading: false });
+    // this.props.sortLoading(gif);
   };
 
   render() {
-    const { id, title, rating, username, src } = this.props;
+    const { id, title, rating, username, src, gif } = this.props;
     return (
       <div className="card">
         {}
