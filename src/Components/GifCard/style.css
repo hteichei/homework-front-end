@@ -6,3 +6,12 @@ img {
 .card {
   margin: 0.5em 0.5em;
 }
+
+.loading {
+  opacity: 0.01;
+}
+
+.loaded {
+  opacity: 1;
+  transition: opacity 1000ms ease-in;
+}
