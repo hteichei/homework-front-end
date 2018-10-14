@@ -1,3 +1,8 @@
+img {
+  width: 250px;
+  height: 250px;
+}
+
 .card {
-  margin: 1em 1em;
+  margin: 0.5em 0.5em;
 }
