@@ -19,9 +19,8 @@ class App extends Component {
     try {
       this.toggleSearchOff();
       const apiKey = `${process.env.REACT_APP_GIF_API_KEY}`;
-      const limit = 20;
-      const weirdness = 10;
-      const url = `http://api.giphy.com/v1/gifs/trending?api_key=${apiKey}&limit=${limit}&weirdness=${weirdness}`;
+      const limit = 30;
+      const url = `http://api.giphy.com/v1/gifs/trending?api_key=${apiKey}&limit=${limit}`;
       const response = await axios.get(url).then(res => {
         console.log('trendingGifs', res.data.data);
         return res.data.data;
@@ -70,7 +69,8 @@ class App extends Component {
       let queryString = this.handleSearchInput(searchParams);
 
       const apiKey = `${process.env.REACT_APP_GIF_API_KEY}`;
-      const url = `http://api.giphy.com/v1/gifs/search?q=${queryString}&api_key=${apiKey}`;
+      const limit = 50;
+      const url = `http://api.giphy.com/v1/gifs/search?q=${queryString}&api_key=${apiKey}&limit=${limit}`;
       const response = await axios.get(url).then(res => {
         console.log('searchGifs', res.data.data);
         return res.data.data;
