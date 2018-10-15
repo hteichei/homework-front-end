@@ -1,21 +1,14 @@
 import React, { Component } from 'react';
 import './style.css';
 import LazyLoad from 'react-lazy-load';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import Modal from 'react-awesome-modal';
-// import { xIcon } from '../../Components/Icons/xIcon';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
-export const xIcon = () => (
-  <div>
-    <FontAwesomeIcon icon="ghost" />;
-  </div>
-);
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 class GifCard extends Component {
   state = {
-    visible: false,
-    loading: true
+    loading: true,
+    visible: false
   };
 
   handleLoading = gif => {
@@ -23,6 +16,15 @@ class GifCard extends Component {
     this.setState({
       loading: false
     });
+  };
+
+  capitalizeString = str => {
+    //capitalize GIF titles
+    let newStr = str
+      .slice(0, 1)
+      .toUpperCase()
+      .concat(str.slice(1));
+    return newStr;
   };
 
   toggleModal = () => {
@@ -45,16 +47,24 @@ class GifCard extends Component {
           visible={this.state.visible}
           effect="fadeInUp"
           onClickAway={() => this.handleClose()}
-          height="300"
-          width="300"
+          height="350"
+          width="350"
         >
           <div>
             <div className="modal">
-              <img src={item.images.fixed_width.url} alt="GIF Modal" />
+              <div className="title">
+                <p>{this.capitalizeString(item.title)}</p>
+              </div>
+              <img
+                className="modalImg"
+                src={item.images.fixed_width.url}
+                alt="GIF Modal"
+              />
               {/* {need to use javascript:void to avoid rerendering page} */}
             </div>
+            <div />
             <a href="javascript:void(0);" onClick={() => this.handleClose()}>
-              <xIcon />
+              <FontAwesomeIcon icon={faTimes} className="icon" />
             </a>
           </div>
         </Modal>

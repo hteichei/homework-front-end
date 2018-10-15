@@ -3,6 +3,11 @@ img {
   height: 180px;
 }
 
+.modalImg {
+  border-radius: 2%;
+  box-shadow: 1em 1em 1.5em rgba(0, 0, 0, 0.46);
+}
+
 .card {
   margin: 0.5em 0.5em;
   border-bottom: 0 none;
@@ -22,11 +27,27 @@ img {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-wrap: wrap;
+}
+
+.title {
+  margin: 0 0.5em;
+  text-align: center;
+}
+
+p {
+  margin-bottom: 0;
 }
 
 .icon {
   position: relative;
   left: 95%;
-  top: 2px;
+  top: 5%;
   size: 2em;
+  color: 'grey';
+}
+
+.icon:hover {
+  color: black;
+  font-weight: bold;
 }
