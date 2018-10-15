@@ -22,7 +22,7 @@ class GifList extends Component {
 
   render() {
     return (
-      <div class="container">
+      <div className="container">
         {this.state.loadedGifs.map((item, i) => (
           <GifCard src={item.imgPath} key={i} />
         ))}
