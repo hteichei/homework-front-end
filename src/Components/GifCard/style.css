@@ -17,3 +17,16 @@ img {
   opacity: 1;
   transition: opacity 1000ms ease-in;
 }
+
+.modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.icon {
+  position: relative;
+  left: 95%;
+  top: 2px;
+  size: 2em;
+}

@@ -5,9 +5,8 @@ import './style.css';
 class GifList extends Component {
   state = { loadedGifs: [] };
 
-  componentDidUpdate(prevProps, prevState) {
-    console.log('isSearch', this.props.isSearch);
-    if (prevProps !== this.props) {
+  componentWillReceiveProps(nextProps) {
+    if (this.props.isSearch !== nextProps.isSearch) {
       this.setState({
         loadedGifs: []
       });
@@ -16,7 +15,7 @@ class GifList extends Component {
 
   sortLoading = item => {
     let updatedGifs = this.state.loadedGifs;
-    updatedGifs.push({ imgPath: item.images.fixed_height.url });
+    updatedGifs.push({ imgPath: item.images.fixed_height.url, item });
     this.setState({ loadedItems: updatedGifs });
   };
 
@@ -24,16 +23,13 @@ class GifList extends Component {
     return (
       <div className="container">
         {this.state.loadedGifs.map((item, i) => (
-          <GifCard src={item.imgPath} key={i} />
+          <GifCard src={item.imgPath} item={item.item} key={i} />
         ))}
         <div className="hidden">
           {this.props.gifList.map((gif, i) => (
             <img
               key={gif.id}
-              id={gif.id}
-              title={gif.title}
               src={gif.images.fixed_height.url}
-              username={gif.username}
               onLoad={() => this.sortLoading(gif)}
             />
           ))}

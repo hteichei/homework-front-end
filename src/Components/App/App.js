@@ -3,6 +3,11 @@ import axios from 'axios';
 import './App.css';
 import GifList from '../GifList';
 import Header from '../Header';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faGhost } from '@fortawesome/free-solid-svg-icons';
+
+library.add(faGhost);
 
 class App extends Component {
   state = {
@@ -17,9 +22,10 @@ class App extends Component {
 
   fetchTrendingGifs = async () => {
     try {
+      console.log('trendingRequest');
       this.toggleSearchOff();
       const apiKey = `${process.env.REACT_APP_GIF_API_KEY}`;
-      const limit = 30;
+      const limit = 10;
       const url = `http://api.giphy.com/v1/gifs/trending?api_key=${apiKey}&limit=${limit}`;
       const response = await axios.get(url).then(res => {
         console.log('trendingGifs', res.data.data);
