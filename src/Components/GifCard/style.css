@@ -6,6 +6,7 @@ img {
 .modalImg {
   border-radius: 2%;
   box-shadow: 1em 1em 1.5em rgba(0, 0, 0, 0.46);
+  padding-bottom: 1.5em;
 }
 
 .card {
@@ -26,28 +27,41 @@ img {
 .modal {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-content: center;
   flex-wrap: wrap;
 }
 
 .title {
-  margin: 0 0.5em;
-  text-align: center;
+  margin: 0 1em;
+  font-size: 1.5em;
+  text-decoration: underline;
+}
+
+.rating {
+  padding-bottom: 1em;
 }
 
 p {
+  text-align: center;
+  font-family: 'Play', sans-serif;
   margin-bottom: 0;
 }
 
+document.body {
+  display: flex;
+}
+
 .icon {
+  display: sticky;
+  box-sizing: initial;
   position: relative;
-  left: 95%;
-  top: 5%;
-  size: 2em;
-  color: 'grey';
+  right: -15em;
+  top: -5em;
+  margin-left: 100%;
+  margin-bottom: 100%;
 }
 
 .icon:hover {
-  color: black;
+  opacity: 0.7;
   font-weight: bold;
 }

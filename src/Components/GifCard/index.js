@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import './style.css';
 import LazyLoad from 'react-lazy-load';
 import Modal from 'react-awesome-modal';
@@ -27,22 +27,28 @@ class GifCard extends Component {
     return newStr;
   };
 
-  toggleModal = () => {
-    //opens modal by setting this.state.visible to true
-    this.setState(prevState => ({
-      visible: !prevState.visible
-    }));
+  handleOpen = () => {
+    this.setState({
+      visible: true
+    });
   };
 
+  // toggleModal = () => {
+  //   //opens modal by setting this.state.visible to true
+  //   this.setState(prevState => ({
+  //     visible: !prevState.visible
+  //   }));
+  // };
+
   handleClose = () => {
-    //closes modal.  i do not understand how i got this to work.  peanuts is arbitrary
-    this.setState({ peanuts: true });
+    console.log('clickedClose');
+    this.setState({ visible: false });
   };
 
   render() {
     const { src, item } = this.props;
     return (
-      <div className="card" onClick={() => this.toggleModal()}>
+      <Fragment>
         <Modal
           visible={this.state.visible}
           effect="fadeInUp"
@@ -52,8 +58,9 @@ class GifCard extends Component {
         >
           <div>
             <div className="modal">
-              <div className="title">
-                <p>{this.capitalizeString(item.title)}</p>
+              <div>
+                <p className="title">{this.capitalizeString(item.title)}</p>
+                <p className="rating">{`Rating: ${item.rating}`}</p>
               </div>
               <img
                 className="modalImg"
@@ -63,20 +70,26 @@ class GifCard extends Component {
               {/* {need to use javascript:void to avoid rerendering page} */}
             </div>
             <div />
-            <a href="javascript:void(0);" onClick={() => this.handleClose()}>
-              <FontAwesomeIcon icon={faTimes} className="icon" />
-            </a>
+            <FontAwesomeIcon
+              icon={faTimes}
+              className="icon"
+              onClick={() => this.handleClose()}
+              color="red"
+              size="2x"
+            />
           </div>
         </Modal>
-        <LazyLoad debounce={false} height={180} width={250} offset={0}>
-          <img
-            src={src}
-            alt="gif"
-            className={this.state.loading ? 'loading' : 'loaded'}
-            onLoad={this.handleLoading}
-          />
-        </LazyLoad>
-      </div>
+        <div className="card" onClick={() => this.handleOpen()}>
+          <LazyLoad debounce={false} height={180} width={250} offset={0}>
+            <img
+              src={src}
+              alt="GIF"
+              className={this.state.loading ? 'loading' : 'loaded'}
+              onLoad={this.handleLoading}
+            />
+          </LazyLoad>
+        </div>
+      </Fragment>
     );
   }
 }
