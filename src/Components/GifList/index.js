@@ -19,7 +19,6 @@ class GifList extends Component {
   }
 
   sortLoading(item) {
-    console.log('image loaded');
     this.setState({
       loadedItems: this.state.loadedItems.concat({
         imgPath: item.images.fixed_height.url,

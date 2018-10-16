@@ -32,12 +32,7 @@ class GifCard extends Component {
   };
 
   handleClose = () => {
-    console.log('clickedClose');
     this.setState({ visible: false });
-  };
-
-  handleLike = () => {
-    console.log('like it');
   };
 
   render() {

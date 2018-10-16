@@ -6,15 +6,12 @@ img {
 .modalImg {
   border-radius: 2%;
   box-shadow: 1em 1em 1.5em rgba(0, 0, 0, 0.46);
-  padding-bottom: 1.5em;
 }
 
 .card {
-  /* position: absolute; */
   margin: 0.5em 0.5em;
   border-bottom: 0 none;
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.46);
-  /* z-index: 999; */
 }
 
 .loading {
