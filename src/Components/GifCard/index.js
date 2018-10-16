@@ -50,8 +50,8 @@ class GifCard extends Component {
           visible={this.state.visible}
           effect="fadeInUp"
           onClickAway={() => this.handleClose()}
-          height="50%"
-          width="40%"
+          height="400"
+          width="350"
         >
           <div>
             <div className="modal">

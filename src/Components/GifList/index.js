@@ -3,7 +3,9 @@ import GifCard from '../GifCard';
 import './style.css';
 
 class GifList extends Component {
-  state = { loadedGifs: [] };
+  state = {
+    loadedGifs: []
+  };
 
   componentWillReceiveProps(nextProps) {
     if (this.props.isSearch !== nextProps.isSearch) {
@@ -31,6 +33,7 @@ class GifList extends Component {
               key={gif.id}
               src={gif.images.fixed_height.url}
               onLoad={() => this.sortLoading(gif)}
+              alt="GIF"
             />
           ))}
         </div>

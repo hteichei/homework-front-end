@@ -14,10 +14,20 @@ class GifSearch extends Component {
   handleSubmit = evt => {
     alert('search!');
     evt.preventDefault();
-    this.props.getSearch(this.state.searchParameter);
+    let searchStr = this.handleString(this.state.searchParameter);
+    console.log('search string', searchStr);
+    this.props.getSearch(searchStr);
     this.setState({
       searchParameter: ''
     });
+  };
+
+  handleString = str => {
+    let newStr = str
+      .trim()
+      .split(' ')
+      .join('+');
+    return newStr;
   };
 
   render() {

@@ -1,13 +1,15 @@
 import axios from 'axios';
 
-const API_KEY = 'M7ABgCOQ4euV5S5F2ijDKbRrIQmttOxI';
+const API_KEY = 'zwYTEATpExYi09jPTeAYdBJfFfV8MmjJ';
 const GIF_LIMIT = 50;
+const weirdness = 10;
 
 const API = axios.create({
   baseURL: 'http://api.giphy.com/v1/gifs/',
   params: {
     api_key: API_KEY,
-    limit: GIF_LIMIT
+    limit: GIF_LIMIT,
+    weirdness
   }
 });
 

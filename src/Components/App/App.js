@@ -9,6 +9,7 @@ import './App.css';
 class App extends Component {
   state = {
     gifs: [],
+    isSearch: false,
     error: ''
   };
 
@@ -24,6 +25,9 @@ class App extends Component {
 
   fetchTrendingGifs = async () => {
     try {
+      this.setState({
+        isSearch: false
+      });
       const response = await fetchTrendingGifs();
 
       this.setState({
@@ -38,6 +42,9 @@ class App extends Component {
 
   fetchGifsBySearch = async searchTerm => {
     try {
+      this.setState({
+        isSearch: true
+      });
       const response = await fetchGifs(searchTerm);
 
       this.setState({
@@ -50,9 +57,7 @@ class App extends Component {
   };
 
   render() {
-    if (this.state.error) {
-      return <div>{this.state.error}</div>;
-    }
+    const { error, gifs } = this.state;
     return (
       <div className="App">
         <Header
@@ -60,7 +65,9 @@ class App extends Component {
           getTrendingGifs={this.fetchTrendingGifs}
         />
 
-        <GifList gifList={this.state.gifs} />
+        <GifList gifList={gifs} isSearch={this.state.isSearch} />
+        <hr />
+        {error && <div style={{ color: '#900' }}>{error}</div>}
       </div>
     );
   }
