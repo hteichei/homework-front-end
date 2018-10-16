@@ -2,8 +2,6 @@ import React, { Component, Fragment } from 'react';
 import './style.css';
 import LazyLoad from 'react-lazy-load';
 import Modal from 'react-awesome-modal';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 class GifCard extends Component {
   state = {
@@ -64,20 +62,12 @@ class GifCard extends Component {
                 src={item.images.fixed_width.url}
                 alt="GIF Modal"
               />
-              {/* {need to use javascript:void to avoid rerendering page} */}
             </div>
             <div />
-            <FontAwesomeIcon
-              icon={faTimes}
-              className="icon"
-              onClick={() => this.handleClose()}
-              color="red"
-              size="2x"
-            />
           </div>
         </Modal>
         <div className="card" onClick={() => this.handleOpen()}>
-          <LazyLoad debounce={false} height={180} width={250} offset={0}>
+          <LazyLoad debounce={true} height={180} width={250} offset={0}>
             <img
               src={src}
               alt="GIF"

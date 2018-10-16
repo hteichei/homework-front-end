@@ -6,3 +6,13 @@
   display: flex;
   justify-content: center;
 }
+
+.searchInput {
+  outline: none;
+  border: none;
+  border-bottom: solid 1px #ddd;
+  text-align: center;
+  padding: 9px 12px;
+  width: 100%;
+  max-width: 100%;
+}

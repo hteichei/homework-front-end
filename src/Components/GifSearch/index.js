@@ -12,7 +12,6 @@ class GifSearch extends Component {
   };
 
   handleSubmit = evt => {
-    alert('search!');
     evt.preventDefault();
     let searchStr = this.handleString(this.state.searchParameter);
     console.log('search string', searchStr);
@@ -40,6 +39,7 @@ class GifSearch extends Component {
           </div>
           <div className="container">
             <input
+              className="searchInput"
               type="text"
               name="search"
               value={this.state.searchParameter}

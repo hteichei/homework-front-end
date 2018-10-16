@@ -9,7 +9,6 @@ import './App.css';
 class App extends Component {
   state = {
     gifs: [],
-    isSearch: false,
     error: ''
   };
 
@@ -23,11 +22,21 @@ class App extends Component {
     });
   };
 
+  handleNoMatch = () => {
+    this.setState({
+      error: 'NO GIFS MATCH THOSE SERACH RESULTS.  PLEASE TRY AGAIN'
+    });
+  };
+
+  clearErrors = () => {
+    this.setState({
+      error: ''
+    });
+  };
+
   fetchTrendingGifs = async () => {
     try {
-      this.setState({
-        isSearch: false
-      });
+      this.clearErrors();
       const response = await fetchTrendingGifs();
 
       this.setState({
@@ -35,23 +44,22 @@ class App extends Component {
         error: ''
       });
     } catch (error) {
-      console.log(error);
       this.setError();
     }
   };
 
   fetchGifsBySearch = async searchTerm => {
     try {
-      this.setState({
-        isSearch: true
-      });
+      this.clearErrors();
       const response = await fetchGifs(searchTerm);
 
       this.setState({
         gifs: response.data.data
       });
+      if (!this.state.gifs.length) {
+        this.handleNoMatch();
+      }
     } catch (error) {
-      console.log(error);
       this.setError();
     }
   };
@@ -65,9 +73,13 @@ class App extends Component {
           getTrendingGifs={this.fetchTrendingGifs}
         />
 
-        <GifList gifList={gifs} isSearch={this.state.isSearch} />
+        <GifList gifList={gifs} error={error} />
         <hr />
-        {error && <div style={{ color: '#900' }}>{error}</div>}
+        {error && (
+          <div className="error" style={{ color: '#900' }}>
+            {error}
+          </div>
+        )}
       </div>
     );
   }
