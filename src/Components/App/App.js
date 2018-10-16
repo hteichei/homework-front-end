@@ -1,106 +1,66 @@
 import React, { Component } from 'react';
-import axios from 'axios';
-import './App.css';
+
+import { fetchTrendingGifs, fetchGifs } from '../../services/api';
 import GifList from '../GifList';
 import Header from '../Header';
 
+import './App.css';
+
 class App extends Component {
   state = {
-    trendingGifs: [],
-    search: false,
-    searchResults: []
+    gifs: [],
+    error: ''
   };
 
-  async componentDidMount() {
+  componentDidMount() {
     this.fetchTrendingGifs();
   }
 
+  setError = () => {
+    this.setState({
+      error: 'There has been an error.  Please try again'
+    });
+  };
+
   fetchTrendingGifs = async () => {
     try {
-      this.toggleSearchOff();
-      const apiKey = `${process.env.REACT_APP_GIF_API_KEY}`;
-      const limit = 10;
-      const url = `http://api.giphy.com/v1/gifs/trending?api_key=${apiKey}&limit=${limit}`;
-      const response = await axios.get(url).then(res => {
-        console.log('trendingGifs', res.data.data);
-        return res.data.data;
-      });
+      const response = await fetchTrendingGifs();
+
       this.setState({
-        trendingGifs: response,
-        ...this.state.search,
-        ...this.state.searchResults
+        gifs: response.data.data,
+        error: ''
       });
     } catch (error) {
       console.log(error);
+      this.setError();
     }
   };
 
-  toggleSearchOn = () => {
-    this.setState({
-      ...this.state,
-      search: true,
-      searchResults: []
-    });
-  };
-
-  toggleSearchOff = () => {
-    this.setState({
-      ...this.state,
-      search: false,
-      searchResults: []
-    });
-  };
-
-  handleSearchInput = searchParams => {
-    let newSearchStr = searchParams
-      .trim()
-      .split(' ')
-      .join('+');
-    return newSearchStr;
-  };
-
-  fetchGifsBySearch = async searchParams => {
+  fetchGifsBySearch = async searchTerm => {
     try {
-      //clear previous search results in state before new request
-      //set this.state.search to true
+      const response = await fetchGifs(searchTerm);
 
-      this.toggleSearchOn();
-      //format search form input for api call
-      let queryString = this.handleSearchInput(searchParams);
-
-      const apiKey = `${process.env.REACT_APP_GIF_API_KEY}`;
-      const limit = 50;
-      const url = `http://api.giphy.com/v1/gifs/search?q=${queryString}&api_key=${apiKey}&limit=${limit}`;
-
-      const response = await axios.get(url).then(res => {
-        console.log('searchGifs', res.data.data);
-        return res.data.data;
-      });
       this.setState({
-        ...this.state,
-        searchResults: response
+        gifs: response.data.data
       });
     } catch (error) {
       console.log(error);
+      this.setError();
     }
   };
 
   render() {
+    if (this.state.error) {
+      return <div>{this.state.error}</div>;
+    }
     return (
       <div className="App">
         <Header
           getSearchResults={this.fetchGifsBySearch}
           getTrendingGifs={this.fetchTrendingGifs}
         />
-        <GifList
-          gifList={
-            //if search is active, render search results, otherwise render trending gifs
-            this.state.search
-              ? this.state.searchResults
-              : this.state.trendingGifs
-          }
-          isSearch={this.state.search}
-        />
+
+        <GifList gifList={this.state.gifs} />
       </div>
     );
   }

@@ -33,16 +33,13 @@ class GifCard extends Component {
     });
   };
 
-  // toggleModal = () => {
-  //   //opens modal by setting this.state.visible to true
-  //   this.setState(prevState => ({
-  //     visible: !prevState.visible
-  //   }));
-  // };
-
   handleClose = () => {
     console.log('clickedClose');
     this.setState({ visible: false });
+  };
+
+  handleLike = () => {
+    console.log('like it');
   };
 
   render() {
@@ -53,8 +50,8 @@ class GifCard extends Component {
           visible={this.state.visible}
           effect="fadeInUp"
           onClickAway={() => this.handleClose()}
-          height="350"
-          width="350"
+          height="50%"
+          width="40%"
         >
           <div>
             <div className="modal">
